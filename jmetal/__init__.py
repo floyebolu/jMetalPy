@@ -1,12 +1,5 @@
 import logging
 
-<<<<<<< HEAD
-=======
-import matplotlib
-
-# matplotlib.use('TkAgg')
-
->>>>>>> Remove use or import of TkAgg
 from jmetal import algorithm
 from jmetal import core
 from jmetal import operator
