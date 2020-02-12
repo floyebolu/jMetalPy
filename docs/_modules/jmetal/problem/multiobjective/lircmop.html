@@ -10,10 +10,9 @@
   <!-- Licensed under the SIL Open Font License -->
   <link rel="stylesheet" type="text/css" href="../../../../_static/fonts/source-serif-pro/source-serif-pro.css" />
   <link rel="stylesheet" type="text/css" href="../../../../_static/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="../../../../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>jmetal.problem.multiobjective.lircmop &#8212; jMetalPy 1.5.1 documentation</title>
+    <title>jmetal.problem.multiobjective.lircmop &#8212; jMetalPy 1.5.3 documentation</title>
     <link rel="stylesheet" href="../../../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
@@ -22,8 +21,9 @@
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">jMetalPy 1.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">jMetalPy 1.5.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>
@@ -50,7 +50,16 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar"><a href="
-    ../../../../index.html" class="text-logo">jMetalPy</a>
+    ../../../../index.html" class="text-logo">
+    <img src="_static/jmetalpy.png" class="img-fluid" alt="jMetalPy 1.5.3 documentation">
+    <br>
+</a>
+
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    Python version of the jMetal framework
+  </div>
+</div>
 <div class="sidebar-block">
   <div class="sidebar-wrapper">
     <h2>Table Of Contents</h2>
@@ -64,8 +73,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../singleobjective.algorithms.html">Single-objective algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../operators.html">Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../problems.html">Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">About</a></li>
 </ul>
 
     
@@ -89,23 +96,23 @@
   </div>
         <div id="right-column">
           
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li><a href="../../../../index.html">Docs</a></li>
+              <li class="breadcrumb-item"><a href="../../../../index.html">Docs</a></li>
               
-                <li><a href="../../../index.html">Module code</a></li>
+              <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
               
-              <li>jmetal.problem.multiobjective.lircmop</li>
+              <li class="breadcrumb-item">jmetal.problem.multiobjective.lircmop</li>
             </ol>
-          </div>
+          </nav>
           
           <div class="document clearer body">
             
   <h1>Source code for jmetal.problem.multiobjective.lircmop</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sqrt</span>
+<span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sqrt</span>
 
-<span class="kn">from</span> <span class="nn">jmetal.core.problem</span> <span class="k">import</span> <span class="n">FloatProblem</span>
-<span class="kn">from</span> <span class="nn">jmetal.core.solution</span> <span class="k">import</span> <span class="n">FloatSolution</span>
+<span class="kn">from</span> <span class="nn">jmetal.core.problem</span> <span class="kn">import</span> <span class="n">FloatProblem</span>
+<span class="kn">from</span> <span class="nn">jmetal.core.solution</span> <span class="kn">import</span> <span class="n">FloatSolution</span>
 
 
 <div class="viewcode-block" id="LIRCMOP1"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP1">[docs]</a><span class="k">class</span> <span class="nc">LIRCMOP1</span><span class="p">(</span><span class="n">FloatProblem</span><span class="p">):</span>
@@ -115,7 +122,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP1</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_variables</span> <span class="o">=</span> <span class="n">number_of_variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_objectives</span> <span class="o">=</span> <span class="mi">2</span>
@@ -176,7 +183,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP2.evaluate"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP2.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -200,7 +207,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP3.evaluate_constraints"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP3.evaluate_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -230,7 +237,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP4</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP4.evaluate_constraints"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP4.evaluate_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -260,8 +267,8 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP1</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP5</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_variables</span> <span class="o">=</span> <span class="n">number_of_variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_objectives</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_constraints</span> <span class="o">=</span> <span class="mi">2</span>
@@ -330,7 +337,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP6</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP6.evaluate"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP6.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -377,7 +384,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP7</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP7.evaluate_constraints"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP7.evaluate_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -414,7 +421,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP8</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP8.evaluate_constraints"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP8.evaluate_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -451,7 +458,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP9</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP9.evaluate"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP9.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -499,7 +506,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP10</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP10.evaluate"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP10.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -546,7 +553,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP11</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP11.evaluate_constraints"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP11.evaluate_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -583,7 +590,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP12</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LIRCMOP12.evaluate_constraints"><a class="viewcode-back" href="../../../../api/problem/multiobjective.html#jmetal.problem.multiobjective.lircmop.LIRCMOP12.evaluate_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">FloatSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FloatSolution</span><span class="p">:</span>
@@ -620,7 +627,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP13</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_variables</span> <span class="o">=</span> <span class="n">number_of_variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_objectives</span> <span class="o">=</span> <span class="mi">3</span>
@@ -673,7 +680,7 @@
 <span class="sd">      Fan, Z., Li, W., Cai, X. et al. Soft Comput (2019). https://doi.org/10.1007/s00500-019-03794-x</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number_of_variables</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LIRCMOP14</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">number_of_variables</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number_of_constraints</span> <span class="o">=</span> <span class="mi">3</span>
 
@@ -708,7 +715,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">jMetalPy 1.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">jMetalPy 1.5.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

@@ -10,10 +10,9 @@
   <!-- Licensed under the SIL Open Font License -->
   <link rel="stylesheet" type="text/css" href="../_static/fonts/source-serif-pro/source-serif-pro.css" />
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Statistical analysis &#8212; jMetalPy 1.5.1 documentation</title>
+    <title>Statistical analysis &#8212; jMetalPy 1.5.3 documentation</title>
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -22,8 +21,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="author" title="About these documents" href="../about.html" />
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Multi-objective algorithms" href="../multiobjective.algorithms.html" />
@@ -47,7 +47,7 @@
         <li class="right" >
           <a href="experiment.html" title="Experiments"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">jMetalPy 1.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">jMetalPy 1.5.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../tutorials.html" accesskey="U">Getting started</a> &#187;</li> 
       </ul>
     </div>
@@ -58,7 +58,16 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar"><a href="
-    ../index.html" class="text-logo">jMetalPy</a>
+    ../index.html" class="text-logo">
+    <img src="_static/jmetalpy.png" class="img-fluid" alt="jMetalPy 1.5.3 documentation">
+    <br>
+</a>
+
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    Python version of the jMetal framework
+  </div>
+</div>
 <div class="sidebar-block">
   <div class="sidebar-wrapper">
     <h2>Table Of Contents</h2>
@@ -70,6 +79,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Getting started</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="problem.html">Defining new problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="observer.html">Extending algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluator.html">Evaluate solutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="visualization.html">Front visualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="experiment.html">Experiments</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Statistical analysis</a></li>
@@ -79,8 +89,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../singleobjective.algorithms.html">Single-objective algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operators.html">Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../problems.html">Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
 </ul>
 
     
@@ -104,15 +112,15 @@
   </div>
         <div id="right-column">
           
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li><a href="../index.html">Docs</a></li>
+              <li class="breadcrumb-item"><a href="../index.html">Docs</a></li>
               
-                <li><a href="../tutorials.html">Getting started</a></li>
+              <li class="breadcrumb-item"><a href="../tutorials.html">Getting started</a></li>
               
-              <li>Statistical analysis</li>
+              <li class="breadcrumb-item">Statistical analysis</li>
             </ol>
-          </div>
+          </nav>
           
           <div class="document clearer body">
             
@@ -126,12 +134,12 @@
             
   <div class="footer-relations">
     
-      <div class="pull-left">
-        <a class="btn btn-default" href="experiment.html" title="previous chapter (use the left arrow)">Experiments</a>
+      <div class="float-left">
+        <a class="btn btn-outline btn-sm" href="experiment.html" title="previous chapter (use the left arrow)">← Experiments</a>
       </div>
     
-      <div class="pull-right">
-        <a class="btn btn-default" href="../multiobjective.algorithms.html" title="next chapter (use the right arrow)">Multi-objective algorithms</a>
+      <div class="float-right">
+        <a class="btn btn-outline btn-sm" href="../multiobjective.algorithms.html" title="next chapter (use the right arrow)">Multi-objective algorithms →</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -154,7 +162,7 @@
         <li class="right" >
           <a href="experiment.html" title="Experiments"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">jMetalPy 1.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">jMetalPy 1.5.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../tutorials.html" >Getting started</a> &#187;</li> 
       </ul>
     </div>
