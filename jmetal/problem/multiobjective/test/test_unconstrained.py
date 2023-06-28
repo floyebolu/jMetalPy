@@ -1,27 +1,31 @@
 import unittest
 
-from jmetal.problem.multiobjective.unconstrained import Kursawe, Fonseca, Schaffer, Viennet2
+from jmetal.problem.multiobjective.unconstrained import (
+    Fonseca,
+    Kursawe,
+    Schaffer,
+    Viennet2,
+)
 
 
 class KursaweTestCases(unittest.TestCase):
-
     def test_should_constructor_create_a_non_null_object(self) -> None:
         problem = Kursawe(3)
         self.assertIsNotNone(problem)
 
     def test_should_constructor_create_a_valid_problem_with_default_settings(self) -> None:
         problem = Kursawe()
-        self.assertEqual(3, problem.number_of_variables)
-        self.assertEqual(2, problem.number_of_objectives)
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(3, problem.number_of_variables())
+        self.assertEqual(2, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
         self.assertEqual([-5.0, -5.0, -5.0], problem.lower_bound)
         self.assertEqual([5.0, 5.0, 5.0], problem.upper_bound)
 
     def test_should_constructor_create_a_valid_problem_with_5_variables(self) -> None:
         problem = Kursawe(5)
-        self.assertEqual(5, problem.number_of_variables)
-        self.assertEqual(2, problem.number_of_objectives)
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(5, problem.number_of_variables())
+        self.assertEqual(2, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
 
         self.assertEqual([-5.0, -5.0, -5.0, -5.0, -5.0], problem.lower_bound)
         self.assertEqual([5.0, 5.0, 5.0, 5.0, 5.0], problem.upper_bound)
@@ -33,7 +37,7 @@ class KursaweTestCases(unittest.TestCase):
         self.assertEqual(3, len(solution.variables))
         self.assertEqual(2, solution.number_of_objectives)
         self.assertEqual(2, len(solution.objectives))
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(0, problem.number_of_constraints())
         self.assertEqual([-5.0, -5.0, -5.0], problem.lower_bound)
         self.assertEqual([5.0, 5.0, 5.0], problem.upper_bound)
         self.assertTrue(all(variable >= -5.0 for variable in solution.variables))
@@ -41,20 +45,19 @@ class KursaweTestCases(unittest.TestCase):
 
     def test_should_get_name_return_the_right_name(self):
         problem = Kursawe()
-        self.assertEqual("Kursawe", problem.get_name())
+        self.assertEqual("Kursawe", problem.name())
 
 
 class FonsecaTestCases(unittest.TestCase):
-
     def test_should_constructor_create_a_non_null_object(self):
         problem = Fonseca()
         self.assertIsNotNone(problem)
 
     def test_should_constructor_create_a_valid_problem_with_default_settings(self):
         problem = Fonseca()
-        self.assertEqual(3, problem.number_of_variables)
-        self.assertEqual(2, problem.number_of_objectives)
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(3, problem.number_of_variables())
+        self.assertEqual(2, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
 
         self.assertEqual(3 * [-4], problem.lower_bound)
         self.assertEqual(3 * [4], problem.upper_bound)
@@ -67,7 +70,7 @@ class FonsecaTestCases(unittest.TestCase):
         self.assertEqual(3, len(solution.variables))
         self.assertEqual(2, solution.number_of_objectives)
         self.assertEqual(2, len(solution.objectives))
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(0, problem.number_of_constraints())
 
         self.assertEqual(3 * [-4], problem.lower_bound)
         self.assertEqual(3 * [4], problem.upper_bound)
@@ -90,23 +93,22 @@ class FonsecaTestCases(unittest.TestCase):
 
     def test_should_get_name_return_the_right_name(self):
         problem = Fonseca()
-        self.assertEqual("Fonseca", problem.get_name())
+        self.assertEqual("Fonseca", problem.name())
 
 
 class SchafferTestCases(unittest.TestCase):
-
     def test_should_constructor_create_a_non_null_object(self):
         problem = Schaffer()
         self.assertIsNotNone(problem)
 
     def test_should_constructor_create_a_valid_problem_with_default_settings(self):
         problem = Schaffer()
-        self.assertEqual(1, problem.number_of_variables)
-        self.assertEqual(2, problem.number_of_objectives)
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(1, problem.number_of_variables())
+        self.assertEqual(2, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
 
-        self.assertEqual([-100000], problem.lower_bound)
-        self.assertEqual([100000], problem.upper_bound)
+        self.assertEqual([-1000], problem.lower_bound)
+        self.assertEqual([1000], problem.upper_bound)
 
     def test_should_create_solution_create_a_valid_float_solution(self):
         problem = Schaffer()
@@ -116,13 +118,13 @@ class SchafferTestCases(unittest.TestCase):
         self.assertEqual(1, len(solution.variables))
         self.assertEqual(2, solution.number_of_objectives)
         self.assertEqual(2, len(solution.objectives))
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(0, problem.number_of_constraints())
 
-        self.assertEqual([-100000], problem.lower_bound)
-        self.assertEqual([100000], problem.upper_bound)
+        self.assertEqual([-1000], problem.lower_bound)
+        self.assertEqual([1000], problem.upper_bound)
 
-        self.assertTrue(solution.variables[0] >= -100000)
-        self.assertTrue(solution.variables[0] <= 100000)
+        self.assertTrue(solution.variables[0] >= -1000)
+        self.assertTrue(solution.variables[0] <= 1000)
 
     def test_should_create_solution_return_right_evaluation_values(self):
         problem = Schaffer()
@@ -143,20 +145,19 @@ class SchafferTestCases(unittest.TestCase):
 
     def test_should_get_name_return_the_right_name(self):
         problem = Schaffer()
-        self.assertEqual("Schaffer", problem.get_name())
+        self.assertEqual("Schaffer", problem.name())
 
 
 class Viennet2TestCases(unittest.TestCase):
-
     def test_should_constructor_create_a_non_null_object(self):
         problem = Viennet2()
         self.assertIsNotNone(problem)
 
     def test_should_constructor_create_a_valid_problem_with_default_settings(self):
         problem = Viennet2()
-        self.assertEqual(2, problem.number_of_variables)
-        self.assertEqual(3, problem.number_of_objectives)
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(2, problem.number_of_variables())
+        self.assertEqual(3, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
 
         self.assertEqual([-4, -4], problem.lower_bound)
         self.assertEqual([4, 4], problem.upper_bound)
@@ -169,7 +170,7 @@ class Viennet2TestCases(unittest.TestCase):
         self.assertEqual(2, len(solution.variables))
         self.assertEqual(3, solution.number_of_objectives)
         self.assertEqual(3, len(solution.objectives))
-        self.assertEqual(0, problem.number_of_constraints)
+        self.assertEqual(0, problem.number_of_constraints())
 
         self.assertEqual([-4, -4], problem.lower_bound)
         self.assertEqual([4, 4], problem.upper_bound)
@@ -191,8 +192,8 @@ class Viennet2TestCases(unittest.TestCase):
 
     def test_should_get_name_return_the_right_name(self):
         problem = Viennet2()
-        self.assertEqual("Viennet2", problem.get_name())
+        self.assertEqual("Viennet2", problem.name())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

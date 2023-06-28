@@ -1,27 +1,245 @@
+import os
 import unittest
-from os.path import dirname, join
+from pathlib import Path
 
-from jmetal.core.quality_indicator import HyperVolume, GenerationalDistance
-from jmetal.core.solution import Solution
-from jmetal.problem import ZDT1
-from jmetal.util.solution import read_solutions
+import numpy as np
+
+from jmetal.core.quality_indicator import (EpsilonIndicator,
+                                           GenerationalDistance, HyperVolume,
+                                           InvertedGenerationalDistance,
+                                           NormalizedHyperVolume)
+
+DIRNAME = os.path.dirname(os.path.abspath(__file__))
+
+
+class GenerationalDistanceTestCases(unittest.TestCase):
+    def test_should_constructor_create_a_non_null_object(self) -> None:
+        indicator = GenerationalDistance([])
+        self.assertIsNotNone(indicator)
+
+    def test_get_name_return_the_right_value(self):
+        self.assertEqual("Generational Distance", GenerationalDistance([]).get_name())
+
+    def test_get_short_name_return_the_right_value(self):
+        self.assertEqual("GD", GenerationalDistance([]).get_short_name())
+
+    def test_case1(self):
+        """
+        Case 1. Reference front: [[1.0, 1.0]], front: [[1.0, 1.0]]
+        Expected result: the distance to the nearest point of the reference front is 0.0
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0]]))
+        front = np.array([[1.0, 1.0]])
+
+        result = indicator.compute(front)
+
+        self.assertEqual(0.0, result)
+
+    def test_case2(self):
+        """
+        Case 2. Reference front: [[1.0, 1.0], [2.0, 2.0], front: [[1.0, 1.0]]
+        Expected result: the distance to the nearest point of the reference front is 0.0
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0], [2.0, 2.0]]))
+        front = np.array([[1.0, 1.0]])
+
+        result = indicator.compute(front)
+
+        self.assertEqual(0.0, result)
+
+    def test_case3(self):
+        """
+        Case 3. Reference front: [[1.0, 1.0, 1.0], [2.0, 2.0, 2.0]], front: [[1.0, 1.0, 1.0]]
+        Expected result: the distance to the nearest point of the reference front is 0.0. Example with three objectives
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0, 1.0], [2.0, 2.0, 2.0]]))
+        front = np.array([[1.0, 1.0, 1.0]])
+
+        result = indicator.compute(front)
+
+        self.assertEqual(0.0, result)
+
+    def test_case4(self):
+        """
+        Case 4. reference front: [[1.0, 1.0], [2.0, 2.0]], front: [[1.5, 1.5]]
+        Expected result: the distance to the nearest point of the reference front is the euclidean distance to any of the
+        points of the reference front
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0], [2.0, 2.0]]))
+        front = np.array([[1.5, 1.5]])
+
+        result = indicator.compute(front)
+
+        self.assertEqual(np.sqrt(pow(1.0 - 1.5, 2) + pow(1.0 - 1.5, 2)), result)
+        self.assertEqual(np.sqrt(pow(2.0 - 1.5, 2) + pow(2.0 - 1.5, 2)), result)
+
+    def test_case5(self):
+        """
+        Case 5. reference front: [[1.0, 1.0], [2.1, 2.1]], front: [[1.5, 1.5]]
+        Expected result: the distance to the nearest point of the reference front is the euclidean distance
+        to the nearest point of the reference front ([1.0, 1.0])
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0], [2.1, 2.1]]))
+        front = np.array([[1.5, 1.5]])
+
+        result = indicator.compute(front)
+
+        self.assertEqual(np.sqrt(pow(1.0 - 1.5, 2) + pow(1.0 - 1.5, 2)), result)
+        self.assertEqual(np.sqrt(pow(2.0 - 1.5, 2) + pow(2.0 - 1.5, 2)), result)
+
+    def test_case6(self):
+        """
+        Case 6. reference front: [[1.0, 1.0], [2.1, 2.1]], front: [[1.5, 1.5], [2.2, 2.2]]
+        Expected result: the distance to the nearest point of the reference front is the average of the sum of each point
+        of the front to the nearest point of the reference front
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0], [2.1, 2.1]]))
+        front = np.array([[1.5, 1.5], [2.2, 2.2]])
+
+        result = indicator.compute(front)
+        distance_of_first_point = np.sqrt(pow(1.0 - 1.5, 2) + pow(1.0 - 1.5, 2))
+        distance_of_second_point = np.sqrt(pow(2.1 - 2.2, 2) + pow(2.1 - 2.2, 2))
+
+        self.assertEqual((distance_of_first_point + distance_of_second_point) / 2.0, result)
+
+    def test_case7(self):
+        """
+        Case 7. reference front: [[1.0, 1.0], [2.1, 2.1]], front: [[1.5, 1.5], [2.2, 2.2], [1.9, 1.9]]
+        Expected result: the distance to the nearest point of the reference front is the sum of each point of the front to the
+        nearest point of the reference front
+
+        :return:
+        """
+        indicator = GenerationalDistance(np.array([[1.0, 1.0], [2.1, 2.1]]))
+        front = np.array([[1.5, 1.5], [2.2, 2.2], [1.9, 1.9]])
+
+        result = indicator.compute(front)
+        distance_of_first_point = np.sqrt(pow(1.0 - 1.5, 2) + pow(1.0 - 1.5, 2))
+        distance_of_second_point = np.sqrt(pow(2.1 - 2.2, 2) + pow(2.1 - 2.2, 2))
+        distance_of_third_point = np.sqrt(pow(2.1 - 1.9, 2) + pow(2.1 - 1.9, 2))
+
+        self.assertEqual((distance_of_first_point + distance_of_second_point + distance_of_third_point) / 3.0, result)
+
+
+class InvertedGenerationalDistanceTestCases(unittest.TestCase):
+    def test_should_constructor_create_a_non_null_object(self) -> None:
+        indicator = InvertedGenerationalDistance([])
+        self.assertIsNotNone(indicator)
+
+    def test_get_name_return_the_right_value(self):
+        self.assertEqual("Inverted Generational Distance", InvertedGenerationalDistance([]).get_name())
+
+    def test_get_short_name_return_the_right_value(self):
+        self.assertEqual("IGD", InvertedGenerationalDistance([]).get_short_name())
+
+    def test_case1(self):
+        """
+        Case 1. Reference front: [[1.0, 1.0]], front: [[1.0, 1.0]]
+        Expected result = 0.0
+        Comment: simplest case
+
+        :return:
+        """
+        indicator = InvertedGenerationalDistance(np.array([[1.0, 1.0]]))
+        front = np.array([[1.0, 1.0]])
+
+        result = indicator.compute(front)
+
+        self.assertEqual(0.0, result)
+
+    def test_case2(self):
+        """
+        Case 2. Reference front: [[1.0, 1.0], [2.0, 2.0], front: [[1.0, 1.0]]
+        Expected result: average of the sum of the distances of the points of the reference front to the front
+
+        :return:
+        """
+        indicator = InvertedGenerationalDistance(np.array([[1.0, 1.0], [2.0, 2.0]]))
+        front = np.array([[1.0, 1.0]])
+
+        result = indicator.compute(front)
+
+        distance_of_first_point = np.sqrt(pow(1.0 - 1.0, 2) + pow(1.0 - 1.0, 2))
+        distance_of_second_point = np.sqrt(pow(2.0 - 1.0, 2) + pow(2.0 - 1.0, 2))
+
+        self.assertEqual((distance_of_first_point + distance_of_second_point) / 2.0, result)
+
+    def test_case3(self):
+        """
+        Case 3. Reference front: [[1.0, 1.0, 1.0], [2.0, 2.0, 2.0]], front: [[1.0, 1.0, 1.0]]
+        Expected result: average of the sum of the distances of the points of the reference front to the front.
+        Example with three objectives
+
+        :return:
+        """
+        indicator = InvertedGenerationalDistance(np.array([[1.0, 1.0, 1.0], [2.0, 2.0, 2.0]]))
+        front = np.array([[1.0, 1.0, 1.0]])
+
+        result = indicator.compute(front)
+
+        distance_of_first_point = np.sqrt(pow(1.0 - 1.0, 2) + pow(1.0 - 1.0, 2) + pow(1.0 - 1.0, 2))
+        distance_of_second_point = np.sqrt(pow(2.0 - 1.0, 2) + pow(2.0 - 1.0, 2) + pow(2.0 - 1.0, 2))
+
+        self.assertEqual((distance_of_first_point + distance_of_second_point) / 2.0, result)
+
+    def test_case4(self):
+        """
+        Case 4. reference front: [[1.0, 1.0], [2.1, 2.1]], front: [[1.5, 1.5], [2.2, 2.2]]
+        Expected result: average of the sum of the distances of the points of the reference front to the front.
+        Example with three objectives
+
+        :return:
+        """
+        indicator = InvertedGenerationalDistance(np.array([[1.0, 1.0], [2.1, 2.1]]))
+        front = np.array([[1.5, 1.5], [2.2, 2.2]])
+
+        result = indicator.compute(front)
+        distance_of_first_point = np.sqrt(pow(1.0 - 1.5, 2) + pow(1.0 - 1.5, 2))
+        distance_of_second_point = np.sqrt(pow(2.1 - 2.2, 2) + pow(2.1 - 2.2, 2))
+
+        self.assertEqual((distance_of_first_point + distance_of_second_point) / 2.0, result)
+
+    def test_case5(self):
+        """
+        Case 5. reference front: [[1.0, 1.0], [2.1, 2.1]], front: [[1.5, 1.5], [2.2, 2.2], [1.9, 1.9]]
+        Expected result: average of the sum of the distances of the points of the reference front to the front.
+        Example with three objectives
+
+        :return:
+        """
+        indicator = InvertedGenerationalDistance(np.array([[1.0, 1.0], [2.0, 2.0]]))
+        front = np.array([[1.5, 1.5], [2.2, 2.2], [1.9, 1.9]])
+
+        result = indicator.compute(front)
+        distance_of_first_point = np.sqrt(pow(1.0 - 1.5, 2) + pow(1.0 - 1.5, 2))
+        distance_of_second_point = np.sqrt(pow(2.0 - 1.9, 2) + pow(2.0 - 1.9, 2))
+
+        self.assertEqual((distance_of_first_point + distance_of_second_point) / 2.0, result)
+
+
+class EpsilonIndicatorTestCases(unittest.TestCase):
+    def test_should_constructor_create_a_non_null_object(self) -> None:
+        indicator = EpsilonIndicator(np.array([[1.0, 1.0], [2.0, 2.0]]))
+        self.assertIsNotNone(indicator)
 
 
 class HyperVolumeTestCases(unittest.TestCase):
-
-    def setUp(self):
-        self.file_path = dirname(join(dirname(__file__)))
-
     def test_should_hypervolume_return_5_0(self):
         reference_point = [2, 2, 2]
 
-        solution1 = Solution(1, 3)
-        solution1.objectives = [1, 0, 1]
-
-        solution2 = Solution(1, 3)
-        solution2.objectives = [0, 1, 0]
-
-        front = [solution1, solution2]
+        front = np.array([[1, 0, 1], [0, 1, 0]])
 
         hv = HyperVolume(reference_point)
         value = hv.compute(front)
@@ -29,51 +247,51 @@ class HyperVolumeTestCases(unittest.TestCase):
         self.assertEqual(5.0, value)
 
     def test_should_hypervolume_return_the_correct_value_when_applied_to_the_ZDT1_reference_front(self):
-        problem = ZDT1()
-        problem.reference_front = read_solutions(filename='resources/reference_front/ZDT1.pf')
+        filepath = Path(DIRNAME, "ZDT1.pf")
+        front = []
+
+        with open(filepath) as file:
+            for line in file:
+                vector = [float(x) for x in line.split()]
+                front.append(vector)
 
         reference_point = [1, 1]
 
         hv = HyperVolume(reference_point)
-        value = hv.compute(problem.reference_front)
+        value = hv.compute(np.array(front))
 
         self.assertAlmostEqual(0.666, value, delta=0.001)
 
 
-class GenerationalDistanceTestCases(unittest.TestCase):
+class NormalizedHyperVolumeTestCases(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        filepath = Path(DIRNAME, "ZDT1.pf")
+        front = []
 
-    def test_should_gd_return_the_closest_point_case_a(self):
-        solution1 = Solution(1, 3)
-        solution1.objectives = [1, 1, 1]
+        with open(filepath) as file:
+            for line in file:
+                vector = [float(x) for x in line.split()]
+                front.append(vector)
 
-        solution2 = Solution(1, 3)
-        solution2.objectives = [2, 2, 2]
+        cls._front = np.array(front)
 
-        reference_front = [solution1, solution2]
+    def test_should_hypervolume_return_zero_when_providing_reference_front(self):
+        reference_point = [1, 1]
+        reference_front = self._front
 
-        gd = GenerationalDistance(reference_front)
-        value = gd.compute([solution1])
+        hv = NormalizedHyperVolume(reference_point, reference_front=reference_front)
+        value = hv.compute(reference_front)
 
-        self.assertEqual(0, value)
+        self.assertAlmostEqual(0, value, delta=0.001)
 
-    def test_should_gd_return_0(self):
-        solution1 = Solution(1, 3)
-        solution1.objectives = [1, 0, 1]
+    def test_should_raise_AssertionError_when_reference_front_hv_is_zero(self):
+        reference_point = [0, 0]
+        reference_front = self._front
 
-        solution2 = Solution(1, 3)
-        solution2.objectives = [0, 1, 0]
-
-        reference_front = [solution1, solution2]
-
-        gd = GenerationalDistance(reference_front)
-        value = gd.compute(reference_front)
-
-        self.assertEqual(0.0, value)
-
-
-class InvertedGenerationalDistanceTestCases(unittest.TestCase):
-    pass
+        with self.assertRaises(AssertionError):
+            _ = NormalizedHyperVolume(reference_point, reference_front=reference_front)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
