@@ -67,7 +67,7 @@ algorithm = NSGAII(
     problem=problem,
     population_size=100,
     offspring_population_size=100,
-    mutation=PolynomialMutation(probability=1.0 / problem.number_of_variables, distribution_index=20),
+    mutation=PolynomialMutation(probability=1.0 / problem.number_of_variables(), distribution_index=20),
     crossover=SBXCrossover(probability=1.0, distribution_index=20),
     termination_criterion=StoppingByEvaluations(max_evaluations=25000)
 )
@@ -78,10 +78,10 @@ algorithm.run()
 We can then proceed to explore the results:
 
 ```python
-from jmetal.util.solution import get_non_dominated_solutions, print_function_values_to_file, \ 
+from jmetal.util.solution import get_non_dominated_solutions, print_function_values_to_file,
     print_variables_to_file
 
-front = get_non_dominated_solutions(algorithm.get_result())
+front = get_non_dominated_solutions(algorithm.result())
 
 # save to files
 print_function_values_to_file(front, 'FUN.NSGAII.ZDT1')
@@ -100,11 +100,11 @@ plot_front.plot(front, label='NSGAII-ZDT1', filename='NSGAII-ZDT1', format='png'
 <img src=docs/source/_static/NSGAII-ZDT1.png width=450 alt="Pareto front approximation">
 
 ## Features
-The current release of jMetalPy (v1.5.7) contains the following components:
+The current release of jMetalPy (v1.7.0) contains the following components:
 
 * Algorithms: local search, genetic algorithm, evolution strategy, simulated annealing, random search, NSGA-II, NSGA-III, SMPSO, OMOPSO, MOEA/D, MOEA/D-DRA, MOEA/D-IEpsilon, GDE3, SPEA2, HYPE, IBEA. Preference articulation-based algorithms (G-NSGA-II, G-GDE3, G-SPEA2, SMPSO/RP); Dynamic versions of NSGA-II, SMPSO, and GDE3.
 * Parallel computing based on Apache Spark and Dask.
-* Benchmark problems: ZDT1-6, DTLZ1-2, FDA, LZ09, LIR-CMOP, unconstrained (Kursawe, Fonseca, Schaffer, Viennet2), constrained (Srinivas, Tanaka).
+* Benchmark problems: ZDT1-6, DTLZ1-2, FDA, LZ09, LIR-CMOP, RWA, unconstrained (Kursawe, Fonseca, Schaffer, Viennet2), constrained (Srinivas, Tanaka).
 * Encodings: real, binary, permutations.
 * Operators: selection (binary tournament, ranking and crowding distance, random, nary random, best solution), crossover (single-point, SBX), mutation (bit-blip, polynomial, uniform, random).
 * Quality indicators: hypervolume, additive epsilon, GD, IGD.
@@ -118,6 +118,7 @@ The current release of jMetalPy (v1.5.7) contains the following components:
 
 ## Changelog
 
+* [v1.7.0] Add RWA benchmark, refactor classes BinarySolution and BinaryProblem.
 * [v1.6.0] Refactor class Problem, the single-objective genetic algorithm can solve constrained problems, performance improvements in NSGA-II, generation of Latex tables summarizing the results of the Wilcoxon rank sum test, added a notebook folder with examples.
 * [v1.5.7] Use of linters for catching errors and formatters to fix style, minor bug fixes.
 * [v1.5.6] Removed warnings when using Python 3.8.

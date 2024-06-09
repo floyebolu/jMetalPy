@@ -4,7 +4,7 @@ from jmetal.problem.multiobjective.unconstrained import (
     Fonseca,
     Kursawe,
     Schaffer,
-    Viennet2,
+    Viennet2, OneZeroMax,
 )
 
 
@@ -33,9 +33,7 @@ class KursaweTestCases(unittest.TestCase):
     def test_should_create_solution_create_a_valid_float_solution(self) -> None:
         problem = Kursawe(3)
         solution = problem.create_solution()
-        self.assertEqual(3, solution.number_of_variables)
         self.assertEqual(3, len(solution.variables))
-        self.assertEqual(2, solution.number_of_objectives)
         self.assertEqual(2, len(solution.objectives))
         self.assertEqual(0, problem.number_of_constraints())
         self.assertEqual([-5.0, -5.0, -5.0], problem.lower_bound)
@@ -66,9 +64,7 @@ class FonsecaTestCases(unittest.TestCase):
         problem = Fonseca()
         solution = problem.create_solution()
 
-        self.assertEqual(3, solution.number_of_variables)
         self.assertEqual(3, len(solution.variables))
-        self.assertEqual(2, solution.number_of_objectives)
         self.assertEqual(2, len(solution.objectives))
         self.assertEqual(0, problem.number_of_constraints())
 
@@ -114,9 +110,7 @@ class SchafferTestCases(unittest.TestCase):
         problem = Schaffer()
         solution = problem.create_solution()
 
-        self.assertEqual(1, solution.number_of_variables)
         self.assertEqual(1, len(solution.variables))
-        self.assertEqual(2, solution.number_of_objectives)
         self.assertEqual(2, len(solution.objectives))
         self.assertEqual(0, problem.number_of_constraints())
 
@@ -166,9 +160,7 @@ class Viennet2TestCases(unittest.TestCase):
         problem = Viennet2()
         solution = problem.create_solution()
 
-        self.assertEqual(2, solution.number_of_variables)
         self.assertEqual(2, len(solution.variables))
-        self.assertEqual(3, solution.number_of_objectives)
         self.assertEqual(3, len(solution.objectives))
         self.assertEqual(0, problem.number_of_constraints())
 
@@ -193,6 +185,51 @@ class Viennet2TestCases(unittest.TestCase):
     def test_should_get_name_return_the_right_name(self):
         problem = Viennet2()
         self.assertEqual("Viennet2", problem.name())
+
+
+class OneZeroMaxTestCases(unittest.TestCase):
+    def test_should_constructor_create_a_non_null_object(self) -> None:
+        problem = OneZeroMax()
+        self.assertIsNotNone(problem)
+
+    def test_should_constructor_create_a_valid_problem_with_default_settings(self) -> None:
+        problem = OneZeroMax()
+        self.assertEqual(1, problem.number_of_variables())
+        self.assertEqual(2, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
+        self.assertEqual(256, problem.total_number_of_bits())
+
+    def test_should_constructor_create_a_valid_problem_with_512_bits(self) -> None:
+        problem = OneZeroMax(512)
+        self.assertEqual(1, problem.number_of_variables())
+        self.assertEqual(2, problem.number_of_objectives())
+        self.assertEqual(0, problem.number_of_constraints())
+        self.assertEqual(512, problem.total_number_of_bits())
+
+    def test_should_create_solution_a_valid_binary_solution(self) -> None:
+        problem = OneZeroMax(256)
+        solution = problem.create_solution()
+        self.assertEqual(256, len(solution.variables[0]))
+
+    def test_should_evaluate_work_properly_if_the_bitset_only_contains_zeroes(self) -> None:
+        problem = OneZeroMax(512)
+        solution = problem.create_solution()
+        solution.variables[0] = [False for _ in range(problem.total_number_of_bits())]
+        problem.evaluate(solution)
+        self.assertEqual(0.0, solution.objectives[0])
+        self.assertEqual(-512, solution.objectives[1])
+
+    def test_should_evaluate_work_properly_if_the_bitset_only_contains_ones(self) -> None:
+        problem = OneZeroMax(512)
+        solution = problem.create_solution()
+        solution.variables[0] = [True for _ in range(problem.total_number_of_bits())]
+        problem.evaluate(solution)
+        self.assertEqual(-512, solution.objectives[0])
+        self.assertEqual(0.0, solution.objectives[1])
+
+    def test_should_get_name_return_the_right_name(self):
+        problem = OneZeroMax()
+        self.assertEqual("OneZeroMax", problem.name())
 
 
 if __name__ == "__main__":

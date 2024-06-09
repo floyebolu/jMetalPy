@@ -10,7 +10,7 @@ from jmetal.config import store
 from jmetal.core.operator import Mutation
 from jmetal.core.problem import Problem
 from jmetal.operator import DifferentialEvolutionCrossover, NaryRandomSolutionSelection
-from jmetal.util.aggregative_function import AggregativeFunction
+from jmetal.util.aggregation_function import AggregationFunction
 from jmetal.util.constraint_handling import (
     feasibility_ratio,
     is_feasible,
@@ -36,7 +36,7 @@ class MOEAD(GeneticAlgorithm):
         population_size: int,
         mutation: Mutation,
         crossover: DifferentialEvolutionCrossover,
-        aggregative_function: AggregativeFunction,
+        aggregation_function: AggregationFunction,
         neighbourhood_selection_probability: float,
         max_number_of_replaced_solutions: int,
         neighbor_size: int,
@@ -62,7 +62,7 @@ class MOEAD(GeneticAlgorithm):
             termination_criterion=termination_criterion,
         )
         self.max_number_of_replaced_solutions = max_number_of_replaced_solutions
-        self.fitness_function = aggregative_function
+        self.fitness_function = aggregation_function
         self.neighbourhood = WeightVectorNeighborhood(
             number_of_weight_vectors=population_size,
             neighborhood_size=neighbor_size,
@@ -156,7 +156,7 @@ class MOEAD(GeneticAlgorithm):
     def get_name(self):
         return "MOEAD"
 
-    def get_result(self):
+    def result(self):
         return self.solutions
 
 
@@ -167,7 +167,7 @@ class MOEAD_DRA(MOEAD):
         population_size,
         mutation,
         crossover,
-        aggregative_function,
+        aggregation_function,
         neighbourhood_selection_probability,
         max_number_of_replaced_solutions,
         neighbor_size,
@@ -181,7 +181,7 @@ class MOEAD_DRA(MOEAD):
             population_size,
             mutation,
             crossover,
-            aggregative_function,
+            aggregation_function,
             neighbourhood_selection_probability,
             max_number_of_replaced_solutions,
             neighbor_size,
@@ -258,8 +258,8 @@ class MOEAD_DRA(MOEAD):
             self.saved_values[i] = copy.copy(self.solutions[i])
 
     def __tour_selection(self, depth):
-        selected = [i for i in range(self.problem.number_of_objectives)]
-        candidate = [i for i in range(self.problem.number_of_objectives, self.population_size)]
+        selected = [i for i in range(self.problem.number_of_objectives())]
+        candidate = [i for i in range(self.problem.number_of_objectives(), self.population_size)]
 
         while len(selected) < int(self.population_size / 5.0):
             best_idd = int(random.random() * len(candidate))
@@ -283,7 +283,7 @@ class MOEADIEpsilon(MOEAD):
         population_size: int,
         mutation: Mutation,
         crossover: DifferentialEvolutionCrossover,
-        aggregative_function: AggregativeFunction,
+        aggregation_function: AggregationFunction,
         neighbourhood_selection_probability: float,
         max_number_of_replaced_solutions: int,
         neighbor_size: int,
@@ -302,7 +302,7 @@ class MOEADIEpsilon(MOEAD):
             population_size=population_size,
             mutation=mutation,
             crossover=crossover,
-            aggregative_function=aggregative_function,
+            aggregation_function=aggregation_function,
             neighbourhood_selection_probability=neighbourhood_selection_probability,
             max_number_of_replaced_solutions=max_number_of_replaced_solutions,
             neighbor_size=neighbor_size,
@@ -416,7 +416,7 @@ class MOEADIEpsilon(MOEAD):
                 for solution in first_rank_solutions:
                     self.archive.append(copy.deepcopy(solution))
 
-    def get_result(self):
+    def result(self):
         return self.archive
 
 

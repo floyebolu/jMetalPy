@@ -1,4 +1,3 @@
-
 from jmetal.algorithm.multiobjective.gde3 import GDE3
 from jmetal.lab.visualization import InteractivePlot, Plot
 from jmetal.problem import ZDT2
@@ -28,7 +27,7 @@ if __name__ == "__main__":
     )
 
     algorithm.run()
-    front = algorithm.get_result()
+    front = algorithm.result()
 
     # Plot front
     plot_front = Plot(

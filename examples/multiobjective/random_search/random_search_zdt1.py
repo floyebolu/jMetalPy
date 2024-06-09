@@ -11,11 +11,12 @@ if __name__ == "__main__":
 
     max_evaluations = 1000
     algorithm = RandomSearch(
-        problem=problem, termination_criterion=StoppingByEvaluations(max_evaluations=max_evaluations)
+        problem=problem,
+        termination_criterion=StoppingByEvaluations(max_evaluations=max_evaluations)
     )
 
     algorithm.run()
-    front = algorithm.get_result()
+    front = algorithm.result()
 
     # Save results to file
     print_function_values_to_file(front, "FUN." + algorithm.label)

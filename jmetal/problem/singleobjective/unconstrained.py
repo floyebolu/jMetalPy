@@ -20,7 +20,7 @@ class OneMax(BinaryProblem):
     """
     def __init__(self, number_of_bits: int = 256):
         super(OneMax, self).__init__()
-        self.number_of_bits = number_of_bits
+        self.number_of_bits_per_variable = [number_of_bits]
 
         self.obj_directions = [self.MINIMIZE]
         self.obj_labels = ["Ones"]
@@ -46,7 +46,7 @@ class OneMax(BinaryProblem):
 
     def create_solution(self) -> BinarySolution:
         new_solution = BinarySolution(number_of_variables=1, number_of_objectives=1)
-        new_solution.variables[0] = [True if random.randint(0, 1) == 0 else False for _ in range(self.number_of_bits)]
+        new_solution.variables[0] = [True if random.randint(0, 1) == 0 else False for _ in range(self.number_of_bits_per_variable[0])]
         return new_solution
 
     def name(self) -> str:
@@ -106,10 +106,10 @@ class Rastrigin(FloatProblem):
 
     def evaluate(self, solution: FloatSolution) -> FloatSolution:
         a = 10.0
-        result = a * solution.number_of_variables
+        result = a * len(solution.variables)
         x = solution.variables
 
-        for i in range(solution.number_of_variables):
+        for i in range(len(solution.variables)):
             result += x[i] * x[i] - a * math.cos(2 * math.pi * x[i])
 
         solution.objectives[0] = result

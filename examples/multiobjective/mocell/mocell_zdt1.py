@@ -8,6 +8,7 @@ from jmetal.util.solution import (
     print_variables_to_file,
     read_solutions,
 )
+
 from jmetal.util.termination_criterion import StoppingByEvaluations
 
 if __name__ == "__main__":
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     )
 
     algorithm.run()
-    front = algorithm.get_result()
+    front = algorithm.result()
 
     # Save results to file
     print_function_values_to_file(front, "FUN." + algorithm.label)

@@ -42,15 +42,15 @@ class Job:
 
         if output_path:
             file_name = os.path.join(output_path, "FUN.{}.tsv".format(self.run_tag))
-            print_function_values_to_file(self.algorithm.get_result(), filename=file_name)
+            print_function_values_to_file(self.algorithm.result(), filename=file_name)
 
             file_name = os.path.join(output_path, "VAR.{}.tsv".format(self.run_tag))
-            print_variables_to_file(self.algorithm.get_result(), filename=file_name)
+            print_variables_to_file(self.algorithm.result(), filename=file_name)
 
             file_name = os.path.join(output_path, "TIME.{}".format(self.run_tag))
             with open(file_name, "w+") as of:
                 of.write(str(self.algorithm.total_computing_time))
-    
+
     def get_algorithm_data(self):
         return self.algorithm.observable_data()
 
@@ -70,7 +70,6 @@ class Experiment:
 
     def run(self) -> None:
         with ProcessPoolExecutor(max_workers=self.m_workers) as executor:
-
             for job in self.jobs:
                 output_path = os.path.join(self.output_dir, job.algorithm_tag, job.problem_tag)
                 executor.submit(job.execute(output_path))
@@ -505,6 +504,7 @@ def generate_median_and_wilcoxon_latex_tables(filename: str, output_dir: str = "
                 )
             )
 
+
 def generate_kolmogorov_smirnov_latex_tables(filename: str, output_dir: str = "latex/KolmogorovSmirnov"):
     """Generate Latex tables with the results of the Kolmogorov-Smirnov test. The last algorithm is considered as
         the reference algorithm, and the cells include a symbol with the p-value < 0.05.
@@ -552,7 +552,7 @@ def generate_kolmogorov_smirnov_latex_tables(filename: str, output_dir: str = "l
                 test_data = test_data._append(new_row, ignore_index=True)
 
     # Generate LaTeX tables
-    caption = "Kolmogorov-Smirnov Test of the {} quality indicator. "\
+    caption = "Kolmogorov-Smirnov Test of the {} quality indicator. " \
               "The algorithm in the last column is the reference " + \
               "algorithm and each cell contain the p-value obtained when applying the test with the reference " \
               "algorithm. Cells with gray background highlight p-values less than 0.05 (i.e., the null hypothesis" \
@@ -567,9 +567,6 @@ def generate_kolmogorov_smirnov_latex_tables(filename: str, output_dir: str = "l
                     label="table:{}".format(indicator_name),
                 )
             )
-
-
-
 
 
 def __averages_to_latex(
@@ -832,6 +829,7 @@ def __median_wilcoxon_to_latex(
 
     return output.getvalue()
 
+
 def __kolmogorov_smirnov_to_latex(indicator_name: str, test_data: pd.DataFrame, caption: str, label: str):
     indicator_data = test_data[test_data["Indicator"] == indicator_name]
 
@@ -872,7 +870,6 @@ def __kolmogorov_smirnov_to_latex(indicator_name: str, test_data: pd.DataFrame, 
     output.write("  \\begin{tiny}\n")
     output.write("  \\begin{tabular}{%s}\n" % col_format)
     output.write("      & {} \\\\\\hline\n".format(" & ".join(column_labels)))
-
 
     for problem in problems:
         values = []

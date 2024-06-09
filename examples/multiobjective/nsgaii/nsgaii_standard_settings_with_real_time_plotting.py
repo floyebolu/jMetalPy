@@ -1,7 +1,7 @@
 from jmetal.algorithm.multiobjective.nsgaii import NSGAII
 from jmetal.lab.visualization import InteractivePlot, Plot
 from jmetal.operator import PolynomialMutation, SBXCrossover
-from jmetal.problem import ZDT6, ZDT1
+from jmetal.problem import ZDT1
 from jmetal.util.observer import ProgressBarObserver, VisualizerObserver
 from jmetal.util.solution import (
     print_function_values_to_file,
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     algorithm.observable.register(observer=VisualizerObserver(reference_front=problem.reference_front))
 
     algorithm.run()
-    front = algorithm.get_result()
+    front = algorithm.result()
 
     # Plot front
     plot_front = Plot(

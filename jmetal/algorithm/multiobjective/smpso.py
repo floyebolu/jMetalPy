@@ -118,7 +118,7 @@ class SMPSO(ParticleSwarmOptimization):
             wmax = self.max_weight
             wmin = self.min_weight
 
-            for var in range(swarm[i].number_of_variables):
+            for var in range(len(swarm[i].variables)):
                 self.speed[i][var] = self.__velocity_constriction(
                     self.__constriction_coefficient(c1, c2)
                     * (
@@ -135,7 +135,7 @@ class SMPSO(ParticleSwarmOptimization):
         for i in range(self.swarm_size):
             particle = swarm[i]
 
-            for j in range(particle.number_of_variables):
+            for j in range(len(particle.variables)):
                 particle.variables[j] += self.speed[i][j]
 
                 if particle.variables[j] < self.problem.lower_bound[j]:
@@ -213,7 +213,7 @@ class SMPSO(ParticleSwarmOptimization):
         observable_data["SOLUTIONS"] = self.leaders.solution_list
         self.observable.notify_all(**observable_data)
 
-    def get_result(self) -> List[FloatSolution]:
+    def result(self) -> List[FloatSolution]:
         return self.leaders.solution_list
 
     def get_name(self) -> str:
@@ -377,7 +377,7 @@ class SMPSORP(SMPSO):
         with self.lock:
             return self.reference_points
 
-    def get_result(self) -> List[FloatSolution]:
+    def result(self) -> List[FloatSolution]:
         result = []
 
         for leader in self.leaders:

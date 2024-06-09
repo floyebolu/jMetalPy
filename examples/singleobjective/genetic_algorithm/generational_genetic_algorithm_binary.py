@@ -11,7 +11,7 @@ if __name__ == "__main__":
         problem=problem,
         population_size=40,
         offspring_population_size=40,
-        mutation=BitFlipMutation(1.0 / problem.number_of_bits),
+        mutation=BitFlipMutation(1.0 / problem.total_number_of_bits()),
         crossover=SPXCrossover(1.0),
         termination_criterion=StoppingByEvaluations(max_evaluations=20000),
     )
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     algorithm.observable.register(observer=PrintObjectivesObserver(100))
 
     algorithm.run()
-    result = algorithm.get_result()
+    result = algorithm.result()
 
     print("Algorithm: {}".format(algorithm.get_name()))
     print("Problem: {}".format(problem.name()))
