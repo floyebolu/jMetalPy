@@ -1,9 +1,10 @@
-
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
@@ -12,18 +13,14 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Contributing &#8212; jMetalPy 1.5.3 documentation</title>
-    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <title>Contributing &#8212; jMetalPy 1.7.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css?v=e05a0192" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=9aa90875" />
+    <script src="_static/documentation_options.js?v=030dc6f6"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -48,7 +45,8 @@
         <li class="right" >
           <a href="api/problem/singleobjective.html" title="Single-objective problems"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">jMetalPy 1.5.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">jMetalPy 1.7.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Contributing</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -59,7 +57,7 @@
   <div id="left-column">
     <div class="sphinxsidebar"><a href="
     index.html" class="text-logo">
-    <img src="_static/jmetalpy.png" class="img-fluid" alt="jMetalPy 1.5.3 documentation">
+    <img src="_static/jmetalpy.png" class="img-fluid" alt="jMetalPy 1.7.0 documentation">
     <br>
 </a>
 
@@ -143,12 +141,12 @@
           
           <div class="document clearer body">
             
-  <div class="section" id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h1>
 <p>Contributions to the jMetalPy project are welcome.
 Please, take into account the following guidelines (all developers should follow these guidelines):</p>
-<div class="section" id="git-workflow">
-<h2>Git WorkFlow<a class="headerlink" href="#git-workflow" title="Permalink to this headline">¶</a></h2>
+<section id="git-workflow">
+<h2>Git WorkFlow<a class="headerlink" href="#git-workflow" title="Link to this heading">¶</a></h2>
 <p>We have a set of branches on the remote Git server.
 Some branches are temporary, and others are constant throughout the life of the repository.</p>
 <ul class="simple">
@@ -216,9 +214,9 @@ Some branches are temporary, and others are constant throughout the life of the 
 <ul class="simple">
 <li><p>git fetch –prune: Cleaning branches removed and bringing new branches</p></li>
 </ul>
-</div>
-<div class="section" id="pep8">
-<h2>PEP8!<a class="headerlink" href="#pep8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pep8">
+<h2>PEP8!<a class="headerlink" href="#pep8" title="Link to this heading">¶</a></h2>
 <p>It is really important to follow some standards when a team develops an application. If all team members format the code in the same format, then it is much easier to read the code. PEP8 is Python’s style guide. It’s a set of rules for how to format your Python code.</p>
 <p>Some style rules:</p>
 <ul class="simple">
@@ -228,61 +226,61 @@ Some branches are temporary, and others are constant throughout the life of the 
 </ul>
 <p>There are many more style standards in PEP8 so, please, refer to <a class="reference external" href="https://www.python.org/dev/peps/pep-0008">PEP8 documentation</a>
 . The most appropriate is to use an IDE that has support for PEP8. For example, <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a>.</p>
-</div>
-<div class="section" id="object-oriented-programming">
-<h2>Object-oriented programming<a class="headerlink" href="#object-oriented-programming" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="object-oriented-programming">
+<h2>Object-oriented programming<a class="headerlink" href="#object-oriented-programming" title="Link to this heading">¶</a></h2>
 <p><strong>Object-oriented programming should be the single programming paradigm used</strong>. Avoiding as far as possible, imperative and functional programming.</p>
-<img alt="_images/python_poo_programming.png" src="_images/python_poo_programming.png" />
-<img alt="_images/python_functional_programming.png" src="_images/python_functional_programming.png" />
-<img alt="_images/python_imperative_programming.png" src="_images/python_imperative_programming.png" />
+<img alt="contributing/python_poo_programming.png" src="contributing/python_poo_programming.png" />
+<img alt="contributing/python_functional_programming.png" src="contributing/python_functional_programming.png" />
+<img alt="contributing/python_imperative_programming.png" src="contributing/python_imperative_programming.png" />
 <p>In classes, we directly access the attributes, which are usually defined as public.</p>
-<img alt="_images/without_getter_setter.png" src="_images/without_getter_setter.png" />
+<img alt="contributing/without_getter_setter.png" src="contributing/without_getter_setter.png" />
 <p>Only when we want to <strong>implement additional logic in the accesses to the attributes</strong> we define getter/setter methods, but <strong>always by using the *property*</strong> annotation or the <strong>*property*</strong> function:</p>
-<img alt="_images/property_annotation.png" src="_images/property_annotation.png" />
-<img alt="_images/property_functional.png" src="_images/property_functional.png" />
+<img alt="contributing/property_annotation.png" src="contributing/property_annotation.png" />
+<img alt="contributing/property_functional.png" src="contributing/property_functional.png" />
 <p>By using <strong>*property*</strong>, we continue to access the attributes directly:</p>
-<img alt="_images/good_access.png" src="_images/good_access.png" />
+<img alt="contributing/good_access.png" src="contributing/good_access.png" />
 <p>Do not use getter/setter methods without the <em>property</em> annotation or the <em>property</em> function:</p>
-<img alt="_images/with_getter_setter.png" src="_images/with_getter_setter.png" />
+<img alt="contributing/with_getter_setter.png" src="contributing/with_getter_setter.png" />
 <p>Since this way of accessing the attribute is not commonly used in Python:</p>
-<img alt="_images/bad_access.png" src="_images/bad_access.png" />
-</div>
-<div class="section" id="structure">
-<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<img alt="contributing/bad_access.png" src="contributing/bad_access.png" />
+</section>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading">¶</a></h2>
 <p>Python is not Java. In Java you cannot, by design, have more than one class in a file. In Python, you can do it.</p>
 <p>In Python, <strong>it is appropriate to group several classes into a single .py file. For that reason, the .py files are called modules.</strong></p>
-</div>
-<div class="section" id="python-3-6">
-<h2>Python 3.6<a class="headerlink" href="#python-3-6" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="python-3-6">
+<h2>Python 3.6<a class="headerlink" href="#python-3-6" title="Link to this heading">¶</a></h2>
 <p>We <strong>always</strong> define types in the parameters of the arguments and the return value:</p>
-<img alt="_images/types_in_methods.png" src="_images/types_in_methods.png" />
+<img alt="contributing/types_in_methods.png" src="contributing/types_in_methods.png" />
 <p>We can define abstract classes (ABCs) in Python:</p>
-<img alt="_images/abstract.png" src="_images/abstract.png" />
+<img alt="contributing/abstract.png" src="contributing/abstract.png" />
 <p>In the case that we want to define an <strong>interface</strong> class, it is done in the same way. We just have to define all the methods of the class as abstract.</p>
 <p>Example of use of generic types:</p>
-<img alt="_images/generic_types.png" src="_images/generic_types.png" />
+<img alt="contributing/generic_types.png" src="contributing/generic_types.png" />
 <p>In the code below, the IDE displays a <strong>warning</strong>, since although the 2nd parameter is a float type, which is a type allowed in the definition of the generic type X, it is not of the same type as the first, since the first 2 parameters must be of the same generic type (S):</p>
-<img alt="_images/instance_with_generic_types1_wearning.png" src="_images/instance_with_generic_types1_wearning.png" />
+<img alt="contributing/instance_with_generic_types1_wearning.png" src="contributing/instance_with_generic_types1_wearning.png" />
 <p>In the code below, the IDE displays a <strong>warning</strong>, since the 2nd parameter is a type not allowed in the definition of the generic type ( <em>TypeVar(‘S’, int, float)</em> ):</p>
-<img alt="_images/instance_with_generic_types2_wearning.png" src="_images/instance_with_generic_types2_wearning.png" />
+<img alt="contributing/instance_with_generic_types2_wearning.png" src="contributing/instance_with_generic_types2_wearning.png" />
 <p>When the class inherits from <em>Generic[…]</em>, the <strong>class is defined as generic</strong>. In this way we can indicate the types that will have the values of the generic types, when using the class as type. Look at the <em>add_car()</em> method of the <em>Parking</em> class.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The generic classes inherit from abc.ABCMeta, so they are abstract classes and <strong>abstract methods can be used</strong>.</p>
 </div>
-<img alt="_images/generic_class1.png" src="_images/generic_class1.png" />
-<img alt="_images/generic_class2.png" src="_images/generic_class2.png" />
+<img alt="contributing/generic_class1.png" src="contributing/generic_class1.png" />
+<img alt="contributing/generic_class2.png" src="contributing/generic_class2.png" />
 <p>In the code below, the IDE displays a <strong>warning</strong> in the call to the <em>add_car()</em> method when adding the car, since the 3rd parameter of the init must be a <em>str</em> type, as defined in the <em>add_car()</em> method of the <em>Parking</em> class.</p>
-<img alt="_images/instance_with_generic_class_wearning.png" src="_images/instance_with_generic_class_wearning.png" />
+<img alt="contributing/instance_with_generic_class_wearning.png" src="contributing/instance_with_generic_class_wearning.png" />
 <p>When inheriting from generic classes, some type variables could be fixed:</p>
-<img alt="_images/generic_types_fixed.png" src="_images/generic_types_fixed.png" />
+<img alt="contributing/generic_types_fixed.png" src="contributing/generic_types_fixed.png" />
 <p>Example of inheritance from non-generic class to generic class:</p>
-<img alt="_images/inheritance_non_generic_to_generic.png" src="_images/inheritance_non_generic_to_generic.png" />
+<img alt="contributing/inheritance_non_generic_to_generic.png" src="contributing/inheritance_non_generic_to_generic.png" />
 <p>Example of inheritance from generic class to another generic class:</p>
-<img alt="_images/inheritance_generic_to_generic.png" src="_images/inheritance_generic_to_generic.png" />
-</div>
-<div class="section" id="create-automatic-documentation-files-with-sphinx">
-<h2>Create automatic documentation files with Sphinx<a class="headerlink" href="#create-automatic-documentation-files-with-sphinx" title="Permalink to this headline">¶</a></h2>
+<img alt="contributing/inheritance_generic_to_generic.png" src="contributing/inheritance_generic_to_generic.png" />
+</section>
+<section id="create-automatic-documentation-files-with-sphinx">
+<h2>Create automatic documentation files with Sphinx<a class="headerlink" href="#create-automatic-documentation-files-with-sphinx" title="Link to this heading">¶</a></h2>
 <p>First, you need to know how to correctly document your code. It is <strong>important</strong> to follow these simple rules in order to automatically create good documentation for the project.</p>
 <p>When you create a new module file (testDoc.py in this example), you should mention it using this format:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -294,7 +292,7 @@ Some branches are temporary, and others are constant throughout the life of the 
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="k">class</span> <span class="nc">testDoc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;We use this as a public class example class.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;We use this as a public class example class.</span>
 
 <span class="sd">    This class is ruled by the very trendy important method :func:`public_fn_with_sphinxy_docstring`.</span>
 
@@ -307,10 +305,10 @@ Some branches are temporary, and others are constant throughout the life of the 
 </pre></div>
 </div>
 <p>This code snippet generates the following documentation:</p>
-<img alt="_images/class_header.png" src="_images/class_header.png" />
+<img alt="contributing/class_header.png" src="contributing/class_header.png" />
 <p>Now, you can document your methods using the following sintax:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">public_fn_with_sphinxy_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;This function does something.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">public_fn_with_sphinxy_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function does something.</span>
 
 <span class="sd">    :param name: The name to use.</span>
 <span class="sd">    :type name: str.</span>
@@ -322,14 +320,14 @@ Some branches are temporary, and others are constant throughout the life of the 
     <span class="k">return</span> <span class="mi">0</span>
 
 <span class="k">def</span> <span class="nf">public_fn_without_docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>And the produced output doc will be:</p>
-<img alt="_images/method_way_sphinx.png" src="_images/method_way_sphinx.png" />
+<img alt="contributing/method_way_sphinx.png" src="contributing/method_way_sphinx.png" />
 <p>As you may notice, if you don’t use any docstring, the method documentation will be empty.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -364,7 +362,8 @@ Some branches are temporary, and others are constant throughout the life of the 
         <li class="right" >
           <a href="api/problem/singleobjective.html" title="Single-objective problems"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">jMetalPy 1.5.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">jMetalPy 1.7.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Contributing</a></li> 
       </ul>
     </div>
 <script type="text/javascript">

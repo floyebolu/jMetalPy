@@ -53,11 +53,12 @@ pip install "jmetalpy[complete]"  # Install all requirements
 
 ## Hello, world! 👋
 
-Examples of configuring and running all the included algorithms are located [in the documentation](https://jmetal.github.io/jMetalPy/multiobjective.algorithms.html).
+Examples of configuring and running all the included algorithms are located [in the documentation](https://jmetal.github.io/jMetalPy).
 
 ```python
 from jmetal.algorithm.multiobjective import NSGAII
-from jmetal.operator import SBXCrossover, PolynomialMutation
+from jmetal.operator.crossover import SBXCrossover
+from jmetal.operator.mutation import PolynomialMutation
 from jmetal.problem import ZDT1
 from jmetal.util.termination_criterion import StoppingByEvaluations
 
@@ -78,8 +79,7 @@ algorithm.run()
 We can then proceed to explore the results:
 
 ```python
-from jmetal.util.solution import get_non_dominated_solutions, print_function_values_to_file,
-    print_variables_to_file
+from jmetal.util.solution import get_non_dominated_solutions, print_function_values_to_file, print_variables_to_file
 
 front = get_non_dominated_solutions(algorithm.result())
 
@@ -118,6 +118,7 @@ The current release of jMetalPy (v1.7.0) contains the following components:
 
 ## Changelog
 
+* [Current development version] The project structure has been changed from [flat to src](https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-structure.html)
 * [v1.7.0] Add RWA benchmark, refactor classes BinarySolution and BinaryProblem.
 * [v1.6.0] Refactor class Problem, the single-objective genetic algorithm can solve constrained problems, performance improvements in NSGA-II, generation of Latex tables summarizing the results of the Wilcoxon rank sum test, added a notebook folder with examples.
 * [v1.5.7] Use of linters for catching errors and formatters to fix style, minor bug fixes.
